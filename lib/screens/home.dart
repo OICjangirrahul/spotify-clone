@@ -13,9 +13,12 @@ class Home extends StatelessWidget {
       child: Row(
         children: [
           Image.network(category.imgUrl, fit: BoxFit.cover),
-          Text(
-            category.name,
-            style: TextStyle(color: Colors.white),
+          Padding(
+            padding: const EdgeInsets.only(left:10),
+            child: Text(
+              category.name,
+              style: TextStyle(color: Colors.white),
+            ),
           )
         ],
       ),
@@ -32,8 +35,12 @@ class Home extends StatelessWidget {
 
   Widget createGrid() {
     return Container(
+      padding: EdgeInsets.all(10),
       height: 400,
       child: GridView.count(
+        childAspectRatio: 5/2,
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 10,
         children: createListOfCategory(),
         crossAxisCount: 2,
       ),
