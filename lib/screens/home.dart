@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'package:spotify/models/category.dart';
+import 'package:spotify/models/music.dart';
 import 'package:spotify/services/categroy_operations.dart';
+import 'package:spotify/services/music_operations.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -14,7 +16,7 @@ class Home extends StatelessWidget {
         children: [
           Image.network(category.imgUrl, fit: BoxFit.cover),
           Padding(
-            padding: const EdgeInsets.only(left:10),
+            padding: const EdgeInsets.only(left: 10),
             child: Text(
               category.name,
               style: TextStyle(color: Colors.white),
@@ -33,12 +35,43 @@ class Home extends StatelessWidget {
     return categories;
   }
 
+  createMusic(Music music) {
+    return Column(
+      children: [
+        Container(
+          height: 200,
+          width: 200,
+          child: Image.network(
+            music.image,
+            fit: BoxFit.cover,
+          ),
+        ),
+        Text(music.name),
+        Text(music.desc),
+      ],
+    );
+  }
+
+  Widget createMusicList(String label) {
+    List<Music> musicList = MusicOperations.getMusic();
+    return Container(
+      height: 300,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (ctx, index) {
+          return createMusic(musicList[index]);
+        },
+        itemCount: musicList.length,
+      ),
+    );
+  }
+
   Widget createGrid() {
     return Container(
       padding: EdgeInsets.all(10),
-      height: 400,
+      height: 300,
       child: GridView.count(
-        childAspectRatio: 5/2,
+        childAspectRatio: 5 / 2,
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
         children: createListOfCategory(),
@@ -67,15 +100,15 @@ class Home extends StatelessWidget {
         child: SafeArea(
       child: Container(
         child: Column(
-          children: [createAppBar("Good Morning"),
-          SizedBox(
-            height: 5,
-          ),
-          createGrid()
+          children: [
+            createAppBar("Good Morning"),
+            SizedBox(
+              height: 5,
+            ),
+            createGrid(),
+            createMusicList('music for you')
           ],
-          
         ),
-        
         decoration: BoxDecoration(
             gradient: LinearGradient(
                 colors: [Colors.blueGrey.shade300, Colors.black],
