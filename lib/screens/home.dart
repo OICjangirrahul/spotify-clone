@@ -36,32 +36,46 @@ class Home extends StatelessWidget {
   }
 
   createMusic(Music music) {
-    return Column(
-      children: [
-        Container(
-          height: 200,
-          width: 200,
-          child: Image.network(
-            music.image,
-            fit: BoxFit.cover,
+    return Padding(
+      padding: EdgeInsets.all(10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            height: 200,
+            width: 200,
+            child: Image.network(
+              music.image,
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-        Text(music.name),
-        Text(music.desc),
-      ],
+          Text(music.name,style: TextStyle(color: Colors.white),),
+          Text(music.desc,style: TextStyle(color: Colors.white),),
+        ],
+      ),
     );
   }
 
   Widget createMusicList(String label) {
     List<Music> musicList = MusicOperations.getMusic();
-    return Container(
-      height: 300,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (ctx, index) {
-          return createMusic(musicList[index]);
-        },
-        itemCount: musicList.length,
+    return Padding(
+      padding: const EdgeInsets.only(left: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [Text("Made for you",style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),),
+          Container(
+            height: 300,
+
+            child: ListView.builder(
+              
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (ctx, index) {
+                return createMusic(musicList[index]);
+              },
+              itemCount: musicList.length,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -69,7 +83,7 @@ class Home extends StatelessWidget {
   Widget createGrid() {
     return Container(
       padding: EdgeInsets.all(10),
-      height: 300,
+      height: 200,
       child: GridView.count(
         childAspectRatio: 5 / 2,
         crossAxisSpacing: 10,
@@ -96,7 +110,7 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return SingleChildScrollView(
         child: SafeArea(
       child: Container(
         child: Column(
@@ -106,7 +120,8 @@ class Home extends StatelessWidget {
               height: 5,
             ),
             createGrid(),
-            createMusicList('music for you')
+            createMusicList('music for you'),
+            createMusicList('Popular playlist')
           ],
         ),
         decoration: BoxDecoration(
