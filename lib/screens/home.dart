@@ -7,7 +7,10 @@ import 'package:spotify/services/categroy_operations.dart';
 import 'package:spotify/services/music_operations.dart';
 
 class Home extends StatelessWidget {
-  const Home({Key? key}) : super(key: key);
+  Function _miniplayer;
+  Home(this._miniplayer);
+
+  // const Home({Key? key}) : super(key: key);
 
   Widget createCategory(Category category) {
     return Container(
@@ -44,13 +47,24 @@ class Home extends StatelessWidget {
           Container(
             height: 200,
             width: 200,
-            child: Image.network(
-              music.image,
-              fit: BoxFit.cover,
+            child: InkWell(
+              onTap: () {
+                _miniplayer(music);
+              },
+              child: Image.network(
+                music.image,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
-          Text(music.name,style: TextStyle(color: Colors.white),),
-          Text(music.desc,style: TextStyle(color: Colors.white),),
+          Text(
+            music.name,
+            style: TextStyle(color: Colors.white),
+          ),
+          Text(
+            music.desc,
+            style: TextStyle(color: Colors.white),
+          ),
         ],
       ),
     );
@@ -62,12 +76,15 @@ class Home extends StatelessWidget {
       padding: const EdgeInsets.only(left: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [Text("Made for you",style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),),
+        children: [
+          Text(
+            label,
+            style: TextStyle(
+                color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+          ),
           Container(
             height: 300,
-
             child: ListView.builder(
-              
               scrollDirection: Axis.horizontal,
               itemBuilder: (ctx, index) {
                 return createMusic(musicList[index]);
