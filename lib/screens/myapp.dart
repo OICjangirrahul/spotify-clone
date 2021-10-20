@@ -79,6 +79,7 @@ class _MyAppState extends State<MyApp> {
             selectedLabelStyle: TextStyle(color: Colors.black),
             selectedItemColor: Colors.white,
             backgroundColor: Colors.black,
+            type: BottomNavigationBarType.fixed,
             items: [
               BottomNavigationBarItem(
                   icon: Icon(Icons.home, color: Colors.white), label: "Home"),
@@ -86,8 +87,16 @@ class _MyAppState extends State<MyApp> {
                   icon: Icon(Icons.search, color: Colors.white),
                   label: "Search"),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.library_add_check, color: Colors.white),
+                  icon: Icon(Icons.my_library_music, color: Colors.white),
                   label: "library"),
+                  BottomNavigationBarItem(
+                  icon: Icon(Icons.library_books, color: Colors.white),
+                  label: "library"),
+            
+                
+                
+                  
+                  
             ],
           ),
         ],
